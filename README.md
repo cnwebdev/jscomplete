@@ -1,2 +1,2 @@
-# jspractice01
+# JAVA SCRIPT
 Web Dev Practice 01
