@@ -1,2 +1,2 @@
-# JAVA SCRIPT
-Web Dev Practice 01
+# JAVA SCRIPT PRACTICE   
+Fullstack Webdev Pratice
