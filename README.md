@@ -1,2 +1,2 @@
 # JAVA SCRIPT PRACTICE   
-Fullstack Webdev Pratice
+Fullstack Webdev Practice
