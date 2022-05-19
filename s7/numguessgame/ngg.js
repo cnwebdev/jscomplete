@@ -16,8 +16,7 @@ const guessField = document.querySelector(".guess");
 
 const gameBg = document.querySelector("body")
 
-const ranNum = Math.trunc(Math.random() * 20) + 1;
-displayRanNum.textContent = ranNum;
+let ranNum = Math.trunc(Math.random() * 20) + 1;
 
 btnClick.addEventListener("click", function() {
     guessNum = Number(guessField.value);
@@ -40,11 +39,14 @@ btnAgain.addEventListener("click", () => {
 });
 
 const gameReset = () => {
-    guessNum = 0;
-    gameScore = 20;
+    ranNum = Math.trunc(Math.random() * 20) + 1;
+    displayRanNum.textContent = "?"
     playerScore.textContent = gameScore;
     playerHiScore.textContent = highScore;
-    window.location.reload(true)
+    gameBg.style.backgroundColor = "#222";
+    displayGameAlert.textContent = "Guess My Number!";
+    guessField.value = "";
+    // window.location.reload(true)
 }
 
 const checkScore = () => {
@@ -56,11 +58,12 @@ const checkScore = () => {
         highScore = gameScore;
         playerScore.textContent = gameScore;
         playerHiScore.textContent = highScore;
+        displayRanNum.textContent = ranNum;
         gameMesage.textContent = "🏆 Correct Number!";
         gameBg.style.backgroundColor = "#60b347";
         displayRanNum.style.width = "30rem";
         displayGameAlert.textContent = "🏆 YOU WON! 🏅";
-
+        
     } else if (guessNum > ranNum) {
         gameScore -= 1;
         playerScore.textContent = gameScore;
