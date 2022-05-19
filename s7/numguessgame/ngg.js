@@ -42,7 +42,6 @@ btnAgain.addEventListener("click", () => {
 const gameReset = () => {
     ranNum = Math.trunc(Math.random() * 20) + 1;
     displayRanNum.textContent = "?"
-
     playerScore.textContent = startScore;
     gameScore = startScore;
     playerHiScore.textContent = highScore;
@@ -50,13 +49,18 @@ const gameReset = () => {
     displayRanNum.style.width = "15rem";
     displayGameAlert.textContent = "Guess My Number!";
     guessField.value = "";
+    gameMessages("Start guessing...");
     // window.location.reload(true)
+}
+
+const gameMessages = (msg) => {
+    gameMesage.textContent = msg;
 }
 
 const checkScore = () => {
     
     if (!guessNum) {
-        gameMesage.textContent = "👀 No number!";
+        gameMessages("👀 No number!");
     } else if (guessNum === ranNum) {
         gameScore += 1;
         if (gameScore > highScore) {
@@ -65,26 +69,35 @@ const checkScore = () => {
         };
         playerScore.textContent = gameScore;
         displayRanNum.textContent = ranNum;
-        gameMesage.textContent = "🏆 Correct Number!";
+        gameMessages("🏆 Correct Number!");
         gameBg.style.backgroundColor = "#60b347";
         displayRanNum.style.width = "30rem";
         displayGameAlert.textContent = "🏆 YOU WON! 🏅";
         
-    } else if (guessNum > ranNum) {
+    } else {
         gameScore -= 1;
-        playerScore.textContent = gameScore;
-        if (gameScore > 0) {
-            gameMesage.textContent = "🪁 Too high."
+        if (gameScore > 1) {
+            // const mess = guessNum > ranNum ? "🪁 Too high." :  "🪸 Too low.";
+            gameMessages(guessNum > ranNum ? "🪁 Too high." :  "🪸 Too low.");
         } else {
-            gameMesage.textContent = "🥵 Game Over!"
-        }
-    } else if (guessNum < ranNum) {
-        gameScore -= 1;
-        playerScore.textContent = gameScore;
-        if (gameScore > 0) {
-            gameMesage.textContent = "🪸 Too low."
-        } else {
-            gameMesage.textContent = "🥵 Game Over!"
+            gameMessages("🥵 Game Over!");
         }
     } 
+    
+    // else if (guessNum > ranNum) {
+    //     playerScore.textContent = gameScore;
+    //     if (gameScore > 0) {
+    //         gameMesage.textContent = "🪁 Too high."
+    //     } else {
+    //         gameMesage.textContent = "🥵 Game Over!"
+    //     }
+    // } else if (guessNum < ranNum) {
+    //     gameScore -= 1;
+    //     playerScore.textContent = gameScore;
+    //     if (gameScore > 0) {
+    //         gameMesage.textContent = "🪸 Too low."
+    //     } else {
+    //         gameMesage.textContent = "🥵 Game Over!"
+    //     }
+    // } 
 }
