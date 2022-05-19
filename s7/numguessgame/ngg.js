@@ -14,24 +14,15 @@ const gameMesage = document.querySelector(".message");
 const btnClick = document.querySelector(".btnCheck");
 const guessField = document.querySelector(".guess");
 
+const gameBg = document.querySelector("body")
+
 const ranNum = Math.trunc(Math.random() * 20) + 1;
 displayRanNum.textContent = ranNum;
-
-console.log(document.querySelector(".message").textContent);
-// document.querySelector(".message").textContent = "correct Number!";
-displayBetween.textContent = "Between 1 and 20";
-// displayGameAlert(".gamealert").textContent = "The Game Has Began";
-
-// console.log(guessField.value); // read value from html feild.
-
-// Clear the guess field when browser refresh
-guessField.textContent = "Hello";
 
 btnClick.addEventListener("click", function() {
     guessNum = Number(guessField.value);
     console.log(guessNum, typeof guessNum);
     checkScore();
-    guessField.textContent = "";
 });
 
 guessField.addEventListener("keypress", function(event) {
@@ -40,7 +31,6 @@ guessField.addEventListener("keypress", function(event) {
         guessNum = Number(guessField.value);
         console.log(guessNum);
         checkScore();
-        guessField.textContent = "";
     }
 });
 
@@ -54,13 +44,11 @@ const gameReset = () => {
     gameScore = 20;
     playerScore.textContent = gameScore;
     playerHiScore.textContent = highScore;
-    gameMesage.textContent = "Start guessing..."
-    guessField.textContent = "";
-
+    window.location.reload(true)
 }
 
 const checkScore = () => {
-
+    
     if (!guessNum) {
         gameMesage.textContent = "👀 No number!";
     } else if (guessNum === ranNum) {
@@ -69,13 +57,25 @@ const checkScore = () => {
         playerScore.textContent = gameScore;
         playerHiScore.textContent = highScore;
         gameMesage.textContent = "🏆 Correct Number!";
+        gameBg.style.backgroundColor = "#60b347";
+        displayRanNum.style.width = "30rem";
+        displayGameAlert.textContent = "🏆 YOU WON! 🏅";
+
     } else if (guessNum > ranNum) {
         gameScore -= 1;
         playerScore.textContent = gameScore;
-        gameMesage.textContent = "🪁 Too high."
+        if (gameScore > 0) {
+            gameMesage.textContent = "🪁 Too high."
+        } else {
+            gameMesage.textContent = "🥵 Game Over!"
+        }
     } else if (guessNum < ranNum) {
         gameScore -= 1;
         playerScore.textContent = gameScore;
-        gameMesage.textContent = "🪸 Too low."
+        if (gameScore > 0) {
+            gameMesage.textContent = "🪸 Too low."
+        } else {
+            gameMesage.textContent = "🥵 Game Over!"
+        }
     } 
 }
