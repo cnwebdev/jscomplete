@@ -1,6 +1,7 @@
 'use strict';
 
-let gameScore = 20;
+const startScore = 20;
+let gameScore = startScore;
 let highScore = 0;
 let guessNum = 0;
 
@@ -41,9 +42,12 @@ btnAgain.addEventListener("click", () => {
 const gameReset = () => {
     ranNum = Math.trunc(Math.random() * 20) + 1;
     displayRanNum.textContent = "?"
-    playerScore.textContent = gameScore;
+
+    playerScore.textContent = startScore;
+    gameScore = startScore;
     playerHiScore.textContent = highScore;
     gameBg.style.backgroundColor = "#222";
+    displayRanNum.style.width = "15rem";
     displayGameAlert.textContent = "Guess My Number!";
     guessField.value = "";
     // window.location.reload(true)
@@ -55,9 +59,11 @@ const checkScore = () => {
         gameMesage.textContent = "👀 No number!";
     } else if (guessNum === ranNum) {
         gameScore += 1;
-        highScore = gameScore;
+        if (gameScore > highScore) {
+            highScore = gameScore;
+            playerHiScore.textContent = highScore;
+        };
         playerScore.textContent = gameScore;
-        playerHiScore.textContent = highScore;
         displayRanNum.textContent = ranNum;
         gameMesage.textContent = "🏆 Correct Number!";
         gameBg.style.backgroundColor = "#60b347";
