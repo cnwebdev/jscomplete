@@ -14,14 +14,12 @@ const displayGameAlert = document.querySelector(".gamealert");
 const gameMesage = document.querySelector(".message");
 const btnClick = document.querySelector(".btnCheck");
 const guessField = document.querySelector(".guess");
-
-const gameBg = document.querySelector("body")
+const gameBg = document.querySelector("body");
 
 let ranNum = Math.trunc(Math.random() * 20) + 1;
 
 btnClick.addEventListener("click", function() {
     guessNum = Number(guessField.value);
-    console.log(guessNum, typeof guessNum);
     checkScore();
 });
 
@@ -29,7 +27,6 @@ guessField.addEventListener("keypress", function(event) {
     const keyName = event.key;
     if (keyName === "Enter") {
         guessNum = Number(guessField.value);
-        console.log(guessNum);
         checkScore();
     }
 });
@@ -73,11 +70,9 @@ const checkScore = () => {
         gameBg.style.backgroundColor = "#60b347";
         displayRanNum.style.width = "30rem";
         displayGameAlert.textContent = "🏆 YOU WON! 🏅";
-        
     } else {
         gameScore -= 1;
         if (gameScore > 1) {
-            // const mess = guessNum > ranNum ? "🪁 Too high." :  "🪸 Too low.";
             gameMessages(guessNum > ranNum ? "🪁 Too high." :  "🪸 Too low.");
         } else {
             gameMessages("🥵 Game Over!");
