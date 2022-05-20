@@ -1,9 +1,10 @@
 'use strict';
 
 const winscore = 100;
-let score = [0, 0];
-let currScore = 0;
-let activePlayer = 0;
+let score;
+let currScore;
+let activePlayer;
+let playing;
 
 // DOM elements selection variables
 const player0 = document.querySelector(".player--0");
@@ -23,28 +24,33 @@ const getRandomNum = () => {
 }
 
 const updateScore = () => {
-    const ranNum = getRandomNum();
-    diceEl.classList.remove("hidden");
-    diceEl.src = `assets/img/dice-${ranNum}.png`;
-    if (ranNum !== 1) {
-        currScore += ranNum;
-        document.getElementById(`current--${activePlayer}`).textContent = currScore;
-    } else {
-        document.getElementById(`current--${activePlayer}`).textContent = 0;
-        switchPlayer();
+    if (playing) {
+        const ranNum = getRandomNum();
+        diceEl.classList.remove("hidden");
+        diceEl.src = `assets/img/dice-${ranNum}.png`;
+        if (ranNum !== 1) {
+            currScore += ranNum;
+            document.getElementById(`current--${activePlayer}`).textContent = currScore;
+        } else {
+            document.getElementById(`current--${activePlayer}`).textContent = 0;
+            switchPlayer();
+        }
     }
 }
 
 const updateHoldStates = () => {
-    score[activePlayer] += currScore;
-    document.getElementById(`score--${activePlayer}`).textContent = score[activePlayer];
-    document.getElementById(`current--${activePlayer}`).textContent = 0;
-    if (score[activePlayer] > winscore) {
-        document.getElementById(`name--${activePlayer}`).textContent = "🏆 WINNER 🎇";
-        document.querySelector(`.player--${activePlayer}`).classList.add("player--winner");
-        document.querySelector(`.player--${activePlayer}`).classList.remove("player--active");
-    } else {
-        switchPlayer();
+    if (playing) {
+        score[activePlayer] += currScore;
+        document.getElementById(`score--${activePlayer}`).textContent = score[activePlayer];
+        document.getElementById(`current--${activePlayer}`).textContent = 0;
+        if (score[activePlayer] >= winscore) {
+            document.getElementById(`name--${activePlayer}`).textContent = "🏆 WINNER 🎇";
+            document.querySelector(`.player--${activePlayer}`).classList.add("player--winner");
+            document.querySelector(`.player--${activePlayer}`).classList.remove("player--active");
+            playing = false;
+        } else {
+            switchPlayer();
+        }
     }
 }
 
@@ -79,11 +85,12 @@ const init = () => {
     score = [0, 0];
     currScore = 0;
     activePlayer = 0; 
-    diceEl.classList.add("hidden");
-    
     curr0El.textContent = 0;
     curr1El.textContent = 0;
     score0El.textContent = 0;
     score1El.textContent = 0;
+    diceEl.classList.add("hidden");
+    playing = true;
 }
 init();
+
