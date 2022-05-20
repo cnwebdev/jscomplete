@@ -20,10 +20,9 @@ btnOpen[i].addEventListener("click", showModal);
 overlay.addEventListener("click", closeModal);
 btnClose.addEventListener("click", closeModal);
 
-document.addEventListener("keydown", function(event) {
-    const keyName = event.key;
-    console.log(keyName);
-    if (keyName === "Escape") {
+document.addEventListener("keydown", function(k) {
+    console.log(k.key);
+    if (k.key === "Escape") {
         closeModal();
     }
 });
