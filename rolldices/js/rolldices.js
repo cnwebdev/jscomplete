@@ -25,7 +25,7 @@ const getRandomNum = () => {
 const updateScore = () => {
     const ranNum = getRandomNum();
     diceEl.classList.remove("hidden");
-    diceEl.src = `dice-${ranNum}.png`;
+    diceEl.src = `assets/img/dice-${ranNum}.png`;
     if (ranNum !== 1) {
         currScore += ranNum;
         document.getElementById(`current--${activePlayer}`).textContent = currScore;
@@ -40,6 +40,7 @@ const updateHoldStates = () => {
     document.getElementById(`score--${activePlayer}`).textContent = score[activePlayer];
     document.getElementById(`current--${activePlayer}`).textContent = 0;
     if (score[activePlayer] > winscore) {
+        document.getElementById(`name--${activePlayer}`).textContent = "🏆 WINNER 🎇";
         document.querySelector(`.player--${activePlayer}`).classList.add("player--winner");
         document.querySelector(`.player--${activePlayer}`).classList.remove("player--active");
     } else {
@@ -71,6 +72,10 @@ btnHold.addEventListener("click", () => {
 });
 
 const resetGame = () => {
+    window.location.reload(true);
+}
+
+const init = () => {
     score = [0, 0];
     currScore = 0;
     activePlayer = 0; 
@@ -81,4 +86,4 @@ const resetGame = () => {
     score0El.textContent = 0;
     score1El.textContent = 0;
 }
-resetGame();
+init();
