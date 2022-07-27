@@ -1,2 +1,2 @@
-# JAVASCRIPT PROJECTS   
-Fullstack Webdevelopment with HTML, CSS, JavaScript, Go, MySQL, PostgreSQL, MariaDB, and MongoDB. 
+# Front-end Web Development 
+## Fullstack Webdevelopment with HTML, CSS, JavaScript. 

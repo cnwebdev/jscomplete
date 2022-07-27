@@ -1,5 +1,69 @@
-'use strict';
+"use strict";
 
+// HTML classes variables - from index.html
+const gameAlert = document.querySelector(".gamealert");
+const between = document.querySelector(".between");
+const btn = document.querySelector(".btn")
+const again = document.querySelector(".again");
+const number = document.querySelector(".number");
+const lerf = document.querySelector(".left");
+const guess = document.querySelector(".guess");
+const btnCheck = document.querySelector(".btnCheck");
+const right = document.querySelector(".right");
+const message = document.querySelector(".message");
+const score = document.querySelector(".score");
+const highscore = document.querySelector(".highscore");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
 const startScore = 20;
 let gameScore = startScore;
 let highScore = 0;
@@ -96,3 +160,5 @@ const checkScore = () => {
     //     }
     // } 
 }
+
+*/
