@@ -6,24 +6,23 @@ const youLoss = "youLoss";
 const tooLow = "tooLow";
 const tooHigh = "tooHigh";
 const outRange = "Try number 1 to 20";
+const gameAlertMsg = "Start guessing...";
 
 // HTML classes variables - from index.html
-const gameAlert = document.querySelector(".gamealert");
-const between = document.querySelector(".between");
-const btn = document.querySelector(".btn")
-const again = document.querySelector(".again");
-const number = document.querySelector(".number");
-const lerf = document.querySelector(".left");
-const guess = document.querySelector(".guess");
-const btnCheck = document.querySelector(".btnCheck");
-const right = document.querySelector(".right");
-const message = document.querySelector(".message");
-const score = document.querySelector(".score");
-const highscore = document.querySelector(".highscore");
+const uiAlert = document.querySelector(".gamealert");
+const buttonReset = document.querySelector(".again");
+const uiRanNum = document.querySelector(".number");
+const uiGuess = document.querySelector(".guess");
+const buttonCheck = document.querySelector(".btnCheck");
+const uiMessage = document.querySelector(".message");
+const uiScore = document.querySelector(".score");
+const uiHighScore = document.querySelector(".highscore");
 
 // Computer generate number
-const ranNum = Math.trunc(Math.random() * 20) + 1;
+let ranNum = Math.trunc(Math.random() * 20) + 1;
 console.log(ranNum);
+uiRanNum.innerHTML = ranNum;
+
 
 // Game data object
 const gameScores = {
@@ -35,36 +34,42 @@ const gameScores = {
     highScore: 0,
 };
 console.log(gameScores);
-number.innerHTML = ranNum;
 
 // gameReset restart the game
-function gameReset(){
-    const ranNum = Math.trunc(Math.random() * 20) + 1;
-    number.innerHTML = ranNum;
-    score.innerHTML = gameScores.score;
-    guess.value = " ";
+function gameReset() {
+    ranNum = Math.trunc(Math.random() * 20) + 1;
+    if (gameScores.highScore <= 0) {
+        gameScores.score = 20;
+        uiScore.innerHTML = gameScores.score;
+    } else {
+        gameScores.score = gameScores.highScore;
+    }
+    uiRanNum.innerHTML = ranNum;
+    uiMessage.innerHTML = gameAlertMsg;
+    uiHighScore.innerHTML = gameScores.highScore;
+    uiGuess.value = " ";
 }
 
 // Event listenners
-guess.addEventListener("keypress", function (event) {
+uiGuess.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
-        const guessVal = guess.value;
+        let guessVal = uiGuess.value;
         console.log(guessVal, typeof guessVal)
         processData(guessVal)
-    };
+    }
 });
 
-btnCheck.addEventListener("click", function() {
-    const guessVal = guess.value;
+buttonCheck.addEventListener("click", function () {
+    let guessVal = uiGuess.value;
     processData(guessVal);
 });
 
-again.addEventListener("click", function() {
+buttonReset.addEventListener("click", function () {
     gameReset();
 });
 
 
-// Compares userNum input num to ranNum 
+// Compares userNum input to ranNum 
 function matchScores(userNum, ranNum) {
     if (userNum === ranNum) {
         return youWon;
@@ -80,7 +85,7 @@ function matchScores(userNum, ranNum) {
 // Update Score to Game data object
 function updateGameData(alertMsg) {
     switch (alertMsg) {
-        case  tooHigh:
+        case tooHigh:
         case tooLow:
             gameScores.score -= 1;
             break;
@@ -97,33 +102,35 @@ function updateGameData(alertMsg) {
 function updateUI(alertMsg) {
     switch (alertMsg) {
         case youWon:
-            message.innerHTML = gameScores.winmsg;
+            uiMessage.innerHTML = gameScores.winmsg;
             break;
         case tooHigh:
-            message.innerHTML = gameScores.highmsg;
+            uiMessage.innerHTML = gameScores.highmsg;
             break;
         case tooLow:
-            message.innerHTML = gameScores.lowmsg;
+            uiMessage.innerHTML = gameScores.lowmsg;
             break;
         default:
-            message.innerHTML = outRange;
+            uiMessage.innerHTML = outRange;
     }
-    score.innerHTML = gameScores.score;
-    highscore.innerHTML = gameScores.highScore;
+    uiScore.innerHTML = gameScores.score;
+    uiHighScore.innerHTML = gameScores.highScore;
 }
 
 // Game controller
 function processData(guessVal) {
     let alertMsg;
-    const userNum = Number(guessVal);
-    if (userNum > 0 && userNum <= 20) {
+    let userNum = Number(guessVal);
+    console.log(userNum, ranNum)
+    if (userNum > 0 && userNum < 21) {
         alertMsg = matchScores(userNum, ranNum);
         updateGameData(alertMsg)
-        updateUI(alertMsg);
+        console.log(alertMsg);
     } else {
         alertMsg = outRange;
-        updateUI(alertMsg);
+        console.log(alertMsg)
     }
+    updateUI(alertMsg);
 }
 
 
