@@ -51,6 +51,7 @@ function gameReset() {
     uiHighScore.innerHTML = gameScores.highScore;
     uiGuess.value = " ";
     uiBody.style.backgroundColor = "#222222";
+    uiRanNum.innerHTML = "?";
     uiRanNum.style.width = "15rem";
 }
 
@@ -115,6 +116,7 @@ function updateUI(alertMsg) {
         case youWon:
             uiMessage.innerHTML = gameScores.winmsg;
             uiBody.style.backgroundColor = "#60b347";
+            uiRanNum.innerHTML = ranNum;
             uiRanNum.style.width = "30rem";
             break;
         case tooHigh:
