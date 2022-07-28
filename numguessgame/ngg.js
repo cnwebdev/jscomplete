@@ -17,11 +17,12 @@ const buttonCheck = document.querySelector(".btnCheck");
 const uiMessage = document.querySelector(".message");
 const uiScore = document.querySelector(".score");
 const uiHighScore = document.querySelector(".highscore");
+const uiBody = document.querySelector("body");
 
 // Computer generate number
 let ranNum = Math.trunc(Math.random() * 20) + 1;
 console.log(ranNum);
-uiRanNum.innerHTML = ranNum;
+// uiRanNum.innerHTML = ranNum;
 
 
 // Game data object
@@ -38,16 +39,19 @@ console.log(gameScores);
 // gameReset restart the game
 function gameReset() {
     ranNum = Math.trunc(Math.random() * 20) + 1;
+    console.log(ranNum);
     if (gameScores.highScore <= 0) {
         gameScores.score = 20;
         uiScore.innerHTML = gameScores.score;
     } else {
         gameScores.score = gameScores.highScore;
     }
-    uiRanNum.innerHTML = ranNum;
+    // uiRanNum.innerHTML = ranNum;
     uiMessage.innerHTML = gameAlertMsg;
     uiHighScore.innerHTML = gameScores.highScore;
     uiGuess.value = " ";
+    uiBody.style.backgroundColor = "#222222";
+    uiRanNum.style.width = "15rem";
 }
 
 // Event listenners
@@ -77,6 +81,8 @@ function matchScores(userNum, ranNum) {
         return tooHigh;
     } else if (userNum < ranNum) {
         return tooLow;
+    } else if (userNum < 1) {
+        return youLoss;
     } else {
         return outRange;
     }
@@ -89,7 +95,12 @@ function updateGameData(alertMsg) {
         case tooLow:
             gameScores.score -= 1;
             break;
+        case youLoss:
+            gameScores.score = 0;
+            gameScores.highScore = 0;
+            break;
         case youWon:
+            gameScores.score += 1;
             gameScores.highScore = gameScores.score;
             break;
         default:
@@ -103,6 +114,8 @@ function updateUI(alertMsg) {
     switch (alertMsg) {
         case youWon:
             uiMessage.innerHTML = gameScores.winmsg;
+            uiBody.style.backgroundColor = "#60b347";
+            uiRanNum.style.width = "30rem";
             break;
         case tooHigh:
             uiMessage.innerHTML = gameScores.highmsg;
@@ -121,14 +134,13 @@ function updateUI(alertMsg) {
 function processData(guessVal) {
     let alertMsg;
     let userNum = Number(guessVal);
-    console.log(userNum, ranNum)
-    if (userNum > 0 && userNum < 21) {
-        alertMsg = matchScores(userNum, ranNum);
+    console.log(userNum, ranNum);
+    if (userNum > 0 && gameScores.score > 1) {
+        alertMsg = matchScores(userNum, ranNum)
         updateGameData(alertMsg)
-        console.log(alertMsg);
-    } else {
-        alertMsg = outRange;
-        console.log(alertMsg)
+    } else if (gameScores.score < 1) {
+        alertMsg = youLoss;
+        updateGameData(alertMsg);
     }
     updateUI(alertMsg);
 }
