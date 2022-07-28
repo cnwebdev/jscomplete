@@ -1,12 +1,12 @@
 "use strict";
 
-// Global Game messages:
-const youWon = "youWon";
-const youLoss = "youLoss";
-const tooLow = "tooLow";
-const tooHigh = "tooHigh";
-const outRange = "Try number 1 to 20";
-const gameAlertMsg = "Start guessing...";
+//Global game messages
+const winmsg = "🏆 You Won!";
+const lossmsg = "Game over, try again?";
+const highmsg = " ☝️️ Too high!";
+const lowmsg = "👇 Too low!";
+const oorang = "Try number from 1 to 20";
+const uiScoreMsg = "Start guessing...";
 
 // HTML classes variables - from index.html
 const uiAlert = document.querySelector(".gamealert");
@@ -25,122 +25,129 @@ console.log(ranNum);
 
 // Game data object
 const gameScores = {
-    winmsg: "🏆 You Won!",
-    lossmsg: "Game over, try again?",
-    highmsg: " ☝️️ Too high!",
-    lowmsg: "👇 Too low!",
-    score: 20,
-    highScore: 0,
+   usrInput: 0,
+   pcNum: 0,
+   score: 20,
+   highScore: 0,
 };
 console.log(gameScores);
 
-// gameReset restart the game
-function gameReset() {
-    ranNum = Math.trunc(Math.random() * 20) + 1;
-    console.log(ranNum);
-    if (gameScores.highScore <= 0) {
-        gameScores.score = 20;
-        uiScore.innerHTML = gameScores.score;
-    } else {
-        gameScores.score = gameScores.highScore;
-    }
-    uiMessage.innerHTML = gameAlertMsg;
-    uiHighScore.innerHTML = gameScores.highScore;
-    uiGuess.value = " ";
-    uiBody.style.backgroundColor = "#222222";
-    uiRanNum.innerHTML = "?";
-    uiRanNum.style.width = "15rem";
-}
-
 // Event listenners
 uiGuess.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-        let guessVal = uiGuess.value;
-        console.log(guessVal, typeof guessVal)
-        processData(guessVal)
-    }
+   if (event.key === "Enter") {
+      let guessVal = uiGuess.value;
+      console.log(guessVal, typeof guessVal)
+      processData(guessVal)
+   }
 });
 
 buttonCheck.addEventListener("click", function () {
-    let guessVal = uiGuess.value;
-    processData(guessVal);
+   let guessVal = uiGuess.value;
+   processData(guessVal);
 });
 
 buttonReset.addEventListener("click", function () {
-    gameReset();
+   gameReset();
 });
+
+// gameReset restart the game
+function gameReset() {
+   ranNum = Math.trunc(Math.random() * 20) + 1;
+   console.log(ranNum);
+   gameScores.score = gameScores.highScore;
+   uiScore.innerHTML = gameScores.highScore;
+   uiMessage.innerHTML = uiScoreMsg;
+   uiGuess.value = " ";
+   uiBody.style.backgroundColor = "#222222";
+   uiRanNum.innerHTML = "?";
+   uiRanNum.style.width = "15rem";
+}
 
 
 // Compares userNum to ranNum 
-function matchScores(userNum, ranNum) {
-    if (userNum === ranNum) {
-        return youWon;
-    } else if (userNum > ranNum) {
-        return tooHigh;
-    } else if (userNum < ranNum) {
-        return tooLow;
-    } else if (userNum < 1) {
-        return youLoss;
-    } else {
-        return outRange;
-    }
+function matchScores() {
+   if (gameScores.usrInput === gameScores.pcNum) {
+      return winmsg;
+   } else if (gameScores.usrInput > gameScores.pcNum) {
+      return highmsg;
+   } else if (gameScores.usrInput < gameScores.pcNum) {
+      return lowmsg;
+   } else {
+      return oorang;
+   }
 }
 
-// Update Score to Game data object
-function updateGameData(alertMsg) {
-    switch (alertMsg) {
-        case tooHigh:
-        case tooLow:
-            gameScores.score -= 1;
-            break;
-        case youLoss:
-            gameScores.score = 0;
-            gameScores.highScore = 0;
-            break;
-        case youWon:
-            gameScores.score += 1;
-            gameScores.highScore = gameScores.score;
-            break;
-        default:
-            console.log("Not sure why it get here???")
-    }
+// Score to Game data object
+function populateGameData(userInput) {
+   let userNum = userInput;
+   gameScores.usrInput = userNum;
+   gameScores.pcNum = ranNum;
+   console.log(gameScores);
+}
+
+// updateGameScores updates the score for each userInput strial
+function updateGameScores(scoreMsg) {
+   let msg = scoreMsg;
+   console.log(msg)
+   switch (msg) {
+      case winmsg:
+         gameScores.score += 1
+         gameScores.highScore = gameScores.score;
+         break;
+      case highmsg:
+      case lowmsg:
+         gameScores.score -= 1;
+         break;
+      case lossmsg:
+         gameScores.score = 0;
+         gameScores.highScore = 0;
+         break;
+      default:
+   }
+   console.log("From updateGameScores", gameScores)
 }
 
 // Update Game UI 
-function updateUI(alertMsg) {
-    switch (alertMsg) {
-        case youWon:
-            uiMessage.innerHTML = gameScores.winmsg;
-            uiBody.style.backgroundColor = "#60b347";
-            uiRanNum.innerHTML = ranNum;
-            uiRanNum.style.width = "30rem";
-            break;
-        case tooHigh:
-            uiMessage.innerHTML = gameScores.highmsg;
-            break;
-        case tooLow:
-            uiMessage.innerHTML = gameScores.lowmsg;
-            break;
-        default:
-            uiMessage.innerHTML = outRange;
-    }
-    uiScore.innerHTML = gameScores.score;
-    uiHighScore.innerHTML = gameScores.highScore;
+function updateUI(scoreMsg) {
+   let uiMsg = scoreMsg;
+   if (uiMsg === winmsg) {
+      uiBody.style.backgroundColor = "#60b347"; 
+      uiRanNum.style.width = "30rem";
+      uiRanNum.innerHTML = gameScores.pcNum;
+      uiHighScore.innerHTML = gameScores.score;
+      uiMessage.innerHTML = winmsg;
+   } else if (uiMsg === lossmsg) {
+      uiMessage.innerHTML = lossmsg;
+      uiScore.innerHTML = gameScores.score;
+      uiHighScore.innerHTML = gameScores.highScore;
+   } else {
+      uiMessage.innerHTML = uiMsg;
+      uiScore.innerHTML = gameScores.score;
+      uiHighScore.innerHTML = gameScores.highScore;
+   }
 }
 
 // Game controller
 function processData(guessVal) {
-    let alertMsg;
-    let userNum = Number(guessVal);
-    console.log(userNum, ranNum);
-    if (userNum > 0 && gameScores.score > 1) {
-        alertMsg = matchScores(userNum, ranNum)
-        updateGameData(alertMsg)
-    } else if (gameScores.score < 1) {
-        alertMsg = youLoss;
-        updateGameData(alertMsg);
-    }
-    updateUI(alertMsg);
+   let scoreMsg;
+   let userNum = Number(guessVal);
+   console.log(userNum, ranNum);
+   if (userNum > 0 && userNum < 21) {
+      if (gameScores.score < 1) {
+         scoreMsg = lossmsg;
+         updateGameScores(scoreMsg);
+         updateUI(scoreMsg);
+      } else {
+         populateGameData(userNum);
+         scoreMsg = matchScores();
+         console.log("from processData", scoreMsg);
+         updateGameScores(scoreMsg);
+         updateUI(scoreMsg);
+      }
+   } else {
+      scoreMsg = oorang;
+      updateUI(scoreMsg);
+   }
 }
 
 
