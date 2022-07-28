@@ -22,8 +22,6 @@ const uiBody = document.querySelector("body");
 // Computer generate number
 let ranNum = Math.trunc(Math.random() * 20) + 1;
 console.log(ranNum);
-// uiRanNum.innerHTML = ranNum;
-
 
 // Game data object
 const gameScores = {
@@ -46,7 +44,6 @@ function gameReset() {
     } else {
         gameScores.score = gameScores.highScore;
     }
-    // uiRanNum.innerHTML = ranNum;
     uiMessage.innerHTML = gameAlertMsg;
     uiHighScore.innerHTML = gameScores.highScore;
     uiGuess.value = " ";
@@ -74,7 +71,7 @@ buttonReset.addEventListener("click", function () {
 });
 
 
-// Compares userNum input to ranNum 
+// Compares userNum to ranNum 
 function matchScores(userNum, ranNum) {
     if (userNum === ranNum) {
         return youWon;
@@ -107,7 +104,6 @@ function updateGameData(alertMsg) {
         default:
             console.log("Not sure why it get here???")
     }
-    console.log(gameScores);
 }
 
 // Update Game UI 
