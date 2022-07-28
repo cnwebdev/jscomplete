@@ -1,5 +1,12 @@
 "use strict";
 
+// Global Game messages:
+const youWon = "youWon";
+const youLoss = "youLoss";
+const tooLow = "tooLow";
+const tooHigh = "tooHigh";
+const outRange = "Try number 1 to 20";
+
 // HTML classes variables - from index.html
 const gameAlert = document.querySelector(".gamealert");
 const between = document.querySelector(".between");
@@ -14,26 +21,104 @@ const message = document.querySelector(".message");
 const score = document.querySelector(".score");
 const highscore = document.querySelector(".highscore");
 
-// Event listenners
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Computer generate number
-const ranNum = Math.trunc(Math.random()*20) + 1;
+const ranNum = Math.trunc(Math.random() * 20) + 1;
 console.log(ranNum);
 
+// Game data object
+const gameScores = {
+    winmsg: "You Won 🏆!",
+    lossmsg: "Game over, try again?",
+    highmsg: " ☝️️ Too high!",
+    lowmsg: "👇 Too low!",
+    score: 20,
+    highScore: 0,
+};
+console.log(gameScores);
 
+// init()
+function init(){
+    number.innerHTML = ranNum;
+    score.innerHTML = gameScores.score;
+    guess.innerHTML = 0;
+}init();
+
+// Event listenners
+guess.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        const guessVal = guess.value;
+        console.log(guessVal, typeof guessVal)
+        processData(guessVal)
+    };
+});
+
+btnCheck.addEventListener("click", function() {
+    const guessVal = guess.value;
+    processData(guessVal);
+});
+
+
+// Compares userNum input num to ranNum 
+function matchScores(userNum, ranNum) {
+    if (userNum === ranNum) {
+        return youWon;
+    } else if (userNum > ranNum) {
+        return tooHigh;
+    } else if (userNum < ranNum) {
+        return tooLow;
+    } else {
+        return outRange;
+    }
+}
+
+// Update Score to Game data object
+function updateGameData(alertMsg) {
+    switch (alertMsg) {
+        case  tooHigh:
+        case tooLow:
+            gameScores.score -= 1;
+            break;
+        case youWon:
+            gameScores.highScore = gameScores.score;
+            break;
+        default:
+            console.log("Not sure why it get here???")
+    }
+    console.log(gameScores);
+}
+
+// Update Game UI 
+function updateUI(alertMsg) {
+    switch (alertMsg) {
+        case youWon:
+            message.innerHTML = gameScores.winmsg;
+            break;
+        case tooHigh:
+            message.innerHTML = gameScores.highmsg;
+            break;
+        case tooLow:
+            message.innerHTML = gameScores.lowmsg;
+            break;
+        default:
+            message.innerHTML = outRange;
+    }
+    score.innerHTML = gameScores.score;
+    highscore.innerHTML = gameScores.highScore;
+}
+
+// Game controller
+function processData(guessVal) {
+    let alertMsg;
+    const userNum = Number(guessVal);
+    if (userNum > 0 && userNum <= 20) {
+        alertMsg = matchScores(userNum, ranNum);
+        updateGameData(alertMsg)
+        updateUI(alertMsg);
+    } else {
+        alertMsg = outRange;
+        updateUI(alertMsg);
+    }
+}
 
 
 
