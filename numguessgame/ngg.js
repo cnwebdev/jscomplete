@@ -14,6 +14,7 @@ const message = document.querySelector(".message");
 const score = document.querySelector(".score");
 const highscore = document.querySelector(".highscore");
 
+// Event listenners
 
 
 
@@ -21,6 +22,16 @@ const highscore = document.querySelector(".highscore");
 
 
 
+
+
+
+
+
+
+
+// Computer generate number
+const ranNum = Math.trunc(Math.random()*20) + 1;
+console.log(ranNum);
 
 
 
