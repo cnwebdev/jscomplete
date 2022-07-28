@@ -27,7 +27,7 @@ console.log(ranNum);
 
 // Game data object
 const gameScores = {
-    winmsg: "You Won 🏆!",
+    winmsg: "🏆 You Won!",
     lossmsg: "Game over, try again?",
     highmsg: " ☝️️ Too high!",
     lowmsg: "👇 Too low!",
@@ -35,13 +35,15 @@ const gameScores = {
     highScore: 0,
 };
 console.log(gameScores);
+number.innerHTML = ranNum;
 
-// init()
-function init(){
+// gameReset restart the game
+function gameReset(){
+    const ranNum = Math.trunc(Math.random() * 20) + 1;
     number.innerHTML = ranNum;
     score.innerHTML = gameScores.score;
-    guess.innerHTML = 0;
-}init();
+    guess.value = " ";
+}
 
 // Event listenners
 guess.addEventListener("keypress", function (event) {
@@ -55,6 +57,10 @@ guess.addEventListener("keypress", function (event) {
 btnCheck.addEventListener("click", function() {
     const guessVal = guess.value;
     processData(guessVal);
+});
+
+again.addEventListener("click", function() {
+    gameReset();
 });
 
 
