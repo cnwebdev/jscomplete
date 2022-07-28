@@ -1,2 +1,2 @@
 # Front-end Web Development 
-## Fullstack Webdevelopment with HTML, CSS, JavaScript. 
+## Front-end web development with HTML, CSS, JavaScript. 
