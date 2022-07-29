@@ -83,6 +83,8 @@ function matchScores() {
    } else {
       message = lossmsg;
    }
+   console.log(message);
+   console.log(gameScores)
    return message;
 }
 
@@ -97,7 +99,7 @@ function updateUIStates(message) {
       uiHighScore.innerHTML = gameScores.highScore;
       uiRanNum.style.width = "30rem";
    } else if (message === lossmsg) {
-      uiState.uiMessage.innerHTML = lossmsg;
+      uiMessage.innerHTML = lossmsg;
    } else {
       uiScore.innerHTML = gameScores.score;
       uiHighScore.innerHTML = gameScores.highScore;
