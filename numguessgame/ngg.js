@@ -26,7 +26,7 @@ let ranNum = Math.trunc(Math.random() * 20) + 1;
 const gameScores = {
    usrInput: 0,
    pcNum: 0,
-   score: 20,
+   score: 0,
    highScore: 0,
    playing: Boolean,
 };
@@ -34,6 +34,10 @@ const gameScores = {
 // init function
 const init = () => {
    gameScores.playing = true;
+   gameScores.usrInput = 0;
+   gameScores.pcNum = 0;
+   gameScores.score = 20;
+   gameScores.highScore = 0;
 }
 init();
 
