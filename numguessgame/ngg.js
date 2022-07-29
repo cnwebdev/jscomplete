@@ -30,6 +30,7 @@ const gameScores = {
    highScore: 0,
 };
 
+// Record the states of the UI depend on the game scores
 const uiState = {
    uiRanNum: uiRanNum,
    uiGuess: uiGuess,
