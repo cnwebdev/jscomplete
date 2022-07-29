@@ -107,7 +107,9 @@ function updateUIStates(message) {
    }
 }
 
-// Score to Game data object
+// updateGameDate stores game scores to GameScores object
+// then update the UI with the correct value based on game's scores
+// stove in the gameScores object
 function updateGameData(guessVal) {
    let userNum = Number(guessVal);
    gameScores.usrInput = userNum;
