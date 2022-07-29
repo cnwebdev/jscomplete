@@ -1,5 +1,5 @@
 # Front-end Web Development 
-## Front-end web development with HTML, CSS, JavaScript. 
+## Technology Used HTML, CSS, JavaScript. 
 ### A Simple Classic Guessing Number Game
 [Testing Guess Number Game](https://tvn9.github.io/jsps/numguessgame/)
 
