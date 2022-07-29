@@ -21,7 +21,6 @@ const uiBody = document.querySelector("body");
 
 // Computer generate number
 let ranNum = Math.trunc(Math.random() * 20) + 1;
-console.log(ranNum);
 
 // Game data object
 const gameScores = {
@@ -40,13 +39,10 @@ const uiState = {
    uiBody: uiBody,
 }
 
-console.log(gameScores);
-
 // Event listenners
 uiGuess.addEventListener("keypress", function (event) {
    if (event.key === "Enter") {
       let guessVal = uiGuess.value;
-      console.log(guessVal, typeof guessVal)
       updateGameData(guessVal);
    }
 });
@@ -67,11 +63,9 @@ function gameReset() {
    gameScores.usrInput = 0;
    if (gameScores.highScore > 0) {
       gameScores.score = gameScores.highScore;
-      console.log(gameScores);
    } else {
       gameScores.score = 20;
       gameScores.highScore = 0;
-      console.log(gameScores);
    }
    uiState.uiBody.style.backgroundColor = "#222222";
    uiState.uiRanNum.innerHTML = "?";
@@ -83,7 +77,7 @@ function gameReset() {
 // matching user input number with pc generated random number
 function matchScores() {
    let message;
-   if (gameScores.score > 0) {
+   if (gameScores.score > 1) {
       if (gameScores.usrInput > 0 && gameScores.usrInput <= 20) {
          if (gameScores.usrInput === gameScores.pcNum) {
             message = winmsg;
@@ -98,15 +92,12 @@ function matchScores() {
    } else {
       message = lossmsg;
    }
-   console.log("From matchScores", message);
    return message;
 }
 
 // Update UI States 
 function updateUIStates(message) {
    let scoreMsg = message;
-   console.log(scoreMsg);
-   console.log("from updateUIStates", scoreMsg)
    if (message === winmsg) {
       uiState.uiMessage.innerHTML = winmsg;
       uiState.uiBody.style.backgroundColor = "#60b347";
@@ -114,7 +105,7 @@ function updateUIStates(message) {
       uiState.uiScore.innerHTML = gameScores.score;
       uiState.uiHighScore.innerHTML = gameScores.highScore;
       uiState.uiRanNum.style.width = "30rem";
-   } else if (message === lossmsg ) {
+   } else if (message === lossmsg) {
       uiState.uiMessage.innerHTML = lossmsg;
    } else {
       uiState.uiScore.innerHTML = gameScores.score;
@@ -123,13 +114,11 @@ function updateUIStates(message) {
    }
 }
 
-
 // Score to Game data object
 function updateGameData(guessVal) {
    let userNum = Number(guessVal);
    gameScores.usrInput = userNum;
    gameScores.pcNum = ranNum;
-   console.log("From updateGameDate", userNum, ranNum)
    let message = matchScores();
    if (message === winmsg) {
       gameScores.score += 1;
@@ -148,6 +137,5 @@ function updateGameData(guessVal) {
       gameScores.highScore = 0;
       updateUIStates(message);
    }
-   console.log("from updateGameDate", gameScores);
 }
 
