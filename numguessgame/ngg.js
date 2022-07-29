@@ -28,7 +28,14 @@ const gameScores = {
    pcNum: 0,
    score: 20,
    highScore: 0,
+   playing: Boolean,
 };
+
+// init function
+const init = () => {
+   gameScores.playing = true;
+}
+init();
 
 // Event listenners
 uiGuess.addEventListener("keypress", function (event) {
@@ -49,6 +56,7 @@ buttonReset.addEventListener("click", function () {
 
 // Play again data
 function gameReset() {
+   gameScores.playing = true;
    ranNum = Math.trunc(Math.random() * 20) + 1;
    gameScores.pcNum = ranNum;
    gameScores.usrInput = 0;
@@ -84,7 +92,7 @@ function matchScores() {
       message = lossmsg;
    }
    console.log(message);
-   console.log(gameScores)
+   console.log(gameScores);
    return message;
 }
 
@@ -98,8 +106,10 @@ function updateUIStates(message) {
       uiScore.innerHTML = gameScores.score;
       uiHighScore.innerHTML = gameScores.highScore;
       uiRanNum.style.width = "30rem";
+      gameScores.playing = false;
    } else if (message === lossmsg) {
       uiMessage.innerHTML = lossmsg;
+      gameScores.playing = false;
    } else {
       uiScore.innerHTML = gameScores.score;
       uiHighScore.innerHTML = gameScores.highScore;
@@ -111,26 +121,28 @@ function updateUIStates(message) {
 // then update the UI with the correct value based on game's scores
 // stove in the gameScores object
 function updateGameData(guessVal) {
-   let userNum = Number(guessVal);
-   gameScores.usrInput = userNum;
-   gameScores.pcNum = ranNum;
-   let message = matchScores();
-   if (message === winmsg) {
-      gameScores.score += 1;
-      gameScores.highScore = gameScores.score;
-      updateUIStates(message);
-   } else if (message === highmsg) {
-      gameScores.score -= 1;
-      updateUIStates(message);
-   } else if (message === lowmsg) {
-      gameScores.score -= 1;
-      updateUIStates(message);
-   } else if (message == oorang) {
-      updateUIStates(message);
-   } else if (message == lossmsg) {
-      gameScores.score = 20;
-      gameScores.highScore = 0;
-      updateUIStates(message);
+   if (gameScores.playing) {
+      let userNum = Number(guessVal);
+      gameScores.usrInput = userNum;
+      gameScores.pcNum = ranNum;
+      let message = matchScores();
+      if (message === winmsg) {
+         gameScores.score += 1;
+         gameScores.highScore = gameScores.score;
+         updateUIStates(message);
+      } else if (message === highmsg) {
+         gameScores.score -= 1;
+         updateUIStates(message);
+      } else if (message === lowmsg) {
+         gameScores.score -= 1;
+         updateUIStates(message);
+      } else if (message == oorang) {
+         updateUIStates(message);
+      } else if (message == lossmsg) {
+         gameScores.score = 20;
+         gameScores.highScore = 0;
+         updateUIStates(message);
+      }
    }
 }
 
