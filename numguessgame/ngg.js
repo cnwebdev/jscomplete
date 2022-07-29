@@ -30,16 +30,6 @@ const gameScores = {
    highScore: 0,
 };
 
-// Record the states of the UI depend on the game scores
-const uiState = {
-   uiRanNum: uiRanNum,
-   uiGuess: uiGuess,
-   uiMessage: uiMessage,
-   uiScore: uiScore,
-   uiHighScore: uiHighScore,
-   uiBody: uiBody,
-}
-
 // Event listenners
 uiGuess.addEventListener("keypress", function (event) {
    if (event.key === "Enter") {
@@ -68,11 +58,11 @@ function gameReset() {
       gameScores.score = 20;
       gameScores.highScore = 0;
    }
-   uiState.uiBody.style.backgroundColor = "#222222";
-   uiState.uiRanNum.innerHTML = "?";
-   uiState.uiGuess.value = "";
-   uiState.uiScore.innerHTML = gameScores.score;
-   uiState.uiMessage.innerHTML = uiScoreMsg;
+   uiBody.style.backgroundColor = "#222222";
+   uiRanNum.innerHTML = "?";
+   uiGuess.value = "";
+   uiScore.innerHTML = gameScores.score;
+   uiMessage.innerHTML = uiScoreMsg;
 }
 
 // matching user input number with pc generated random number
@@ -100,18 +90,18 @@ function matchScores() {
 function updateUIStates(message) {
    let scoreMsg = message;
    if (message === winmsg) {
-      uiState.uiMessage.innerHTML = winmsg;
-      uiState.uiBody.style.backgroundColor = "#60b347";
-      uiState.uiRanNum.innerHTML = gameScores.pcNum;
-      uiState.uiScore.innerHTML = gameScores.score;
-      uiState.uiHighScore.innerHTML = gameScores.highScore;
-      uiState.uiRanNum.style.width = "30rem";
+      uiMessage.innerHTML = winmsg;
+      uiBody.style.backgroundColor = "#60b347";
+      uiRanNum.innerHTML = gameScores.pcNum;
+      uiScore.innerHTML = gameScores.score;
+      uiHighScore.innerHTML = gameScores.highScore;
+      uiRanNum.style.width = "30rem";
    } else if (message === lossmsg) {
       uiState.uiMessage.innerHTML = lossmsg;
    } else {
-      uiState.uiScore.innerHTML = gameScores.score;
-      uiState.uiHighScore.innerHTML = gameScores.highScore;
-      uiState.uiMessage.innerHTML = scoreMsg;
+      uiScore.innerHTML = gameScores.score;
+      uiHighScore.innerHTML = gameScores.highScore;
+      uiMessage.innerHTML = scoreMsg;
    }
 }
 
