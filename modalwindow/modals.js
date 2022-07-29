@@ -2,7 +2,7 @@
 
 // Pre-declare variables for DOM querySelector classes on index.html
 const btnModal = document.querySelectorAll(".show-modal");
-const model = document.querySelector(".model");
+const modal = document.querySelector(".modal");
 const hidden = document.querySelector(".hidden");
 const btnClose = document.querySelector(".close-modal")
 const overlay = document.querySelector(".overlay")
@@ -30,3 +30,11 @@ btnClose.addEventListener("click", closeModals);
 
 // Remove the overlay, and the modal by click anywhere on the overlay 
 overlay.addEventListener("click", closeModals);
+
+document.addEventListener("keydown", function(event) {
+   console.log(event.key);
+   if (event.key === "Escape" && !modal.classList.contains("hidden")) {
+      console.log(event.key);
+      closeModals();
+   }
+});
