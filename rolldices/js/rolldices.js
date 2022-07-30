@@ -20,7 +20,7 @@ const gameData = {
    activePlayer: 0,
    playersScore: [0, 0],
    currScore: 0,
-   winnerAlert: "🏆 🎇 Winner!",
+   winnerAlert: "🏆 Winner! 🎇",
    playing: Boolean,
 }
 
@@ -38,7 +38,6 @@ const init = () => {
    current1.innerHTML = gameData.currScore;
    player0.classList.remove("player--winner");
    player1.classList.remove("player--winner");
-   player0.classList.remove("player--active");
    player1.classList.remove("player--active");
    player0.classList.add("player--active");
    name0.innerHTML = "Player 1";
@@ -54,7 +53,6 @@ const switchPlayers = () => {
       gameData.activePlayer = gameData.activePlayer === 0 ? 1 : 0;
       player0.classList.toggle("player--active");
       player1.classList.toggle("player--active");
-      console.log("From switchPlayers", gameData);
    }
 }
 
@@ -81,20 +79,16 @@ const holdCurrentScore = () => {
       gameData.playersScore[gameData.activePlayer] += gameData.currScore;
       document.getElementById(`score--${gameData.activePlayer}`).innerHTML = 
       gameData.playersScore[gameData.activePlayer];
-      
       if (gameData.playersScore[gameData.activePlayer] >= gameData.winScore) {
-         dice.classList.add("hidden");
          document.querySelector(`.player--${gameData.activePlayer}`).classList.add("player--winner");
          document.getElementById(`name--${gameData.activePlayer}`).classList.add("name");
          document.getElementById(`name--${gameData.activePlayer}`).innerHTML = gameData.winnerAlert;
          document.querySelector(`.player--${gameData.activePlayer}`).classList.remove("player--active");
+         dice.classList.add("hidden");
          gameData.playing = false;
       } else {
          switchPlayers();
       }
-      
-      console.log("Player ", gameData.playersScore[gameData.activePlayer]);
-      console.log(gameData);
    }
 }
    
