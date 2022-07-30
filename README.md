@@ -1,7 +1,7 @@
 # Front-end Web Development 
-## Technology Used HTML, CSS, JavaScript. 
+## Technology Used - HTML, CSS, and JavaScript. 
 ### A Simple Classic Guessing Number Game
-[Testing Guess Number Game](https://tvn9.github.io/jsps/numguessgame/)
+[Click here to run](https://tvn9.github.io/jsps/numguessgame/)
 
 ```javascript
 // matching user input number with pc generated random number

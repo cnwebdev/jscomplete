@@ -1,6 +1,6 @@
 # Web Modal Components
 
-## Tech used HTML/CSS/JavaScript
+## Tech used - HTML, CSS and JavaScript
 
 A simple example of a web modal component 
 

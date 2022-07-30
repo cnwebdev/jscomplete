@@ -1,5 +1,5 @@
 # Roll The Dices Game
-A basic roll the dice classic game home work 
+A basic roll the dice classic game homework.
 
 ## Complete Modern JavaScript Bootcamp 
 Instructor/designer: Jonas Schemedtmann
