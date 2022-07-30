@@ -28,7 +28,7 @@ const gameData = {
 const init = () => {
    gameData.playing = true;
    dice.classList.add("hidden");
-   gameData.winScore = 50;
+   gameData.winScore = 100;
    gameData.playersScore = [0, 0];
    gameData.currScore = 0;
    gameData.activePlayer = 0;
@@ -38,6 +38,8 @@ const init = () => {
    current1.innerHTML = gameData.currScore;
    player0.classList.remove("player--winner");
    player1.classList.remove("player--winner");
+   player0.classList.remove("player--active");
+   player1.classList.remove("player--active");
    player0.classList.add("player--active");
    name0.innerHTML = "Player 1";
    name1.innerHTML = "Player 2";
