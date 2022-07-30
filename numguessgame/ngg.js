@@ -20,14 +20,18 @@ const uiHighScore = document.querySelector(".highscore");
 const uiBody = document.querySelector("body");
 
 // Computer generate number
-let ranNum = Math.trunc(Math.random() * 20) + 1;
+let ranNum;
+const getRanNum = () => {
+   ranNum = Math.trunc(Math.random() * 20) + 1;
+   return ranNum;
+}
 
 // Game data object
 const gameScores = {
-   usrInput: 0,
-   pcNum: 0,
-   score: 0,
-   highScore: 0,
+   usrInput: Number,
+   pcNum: Number,
+   score: Number,
+   highScore: Number,
    playing: Boolean,
 };
 
@@ -35,9 +39,10 @@ const gameScores = {
 const init = () => {
    gameScores.playing = true;
    gameScores.usrInput = 0;
-   gameScores.pcNum = 0;
+   gameScores.pcNum = getRanNum();
    gameScores.score = 20;
    gameScores.highScore = 0;
+   console.log(gameScores)
 }
 init();
 
@@ -75,6 +80,7 @@ function gameReset() {
    uiGuess.value = "";
    uiScore.innerHTML = gameScores.score;
    uiMessage.innerHTML = uiScoreMsg;
+   console.log(gameScores);
 }
 
 // matching user input number with pc generated random number
