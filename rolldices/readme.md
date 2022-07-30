@@ -6,6 +6,11 @@ Instructor/designer: Jonas Schemedtmann
 
 Student/coder: Thanh Nguyen
 
+## Tech Used - HTML, CSS, and JavaScript
+
+### Test out the game
+[Click here to run](https://tvn9.github.io/jsps/rolldices/)
+
 ### Code Snippet 
 ```javascript
 
