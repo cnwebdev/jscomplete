@@ -1,0 +1,26 @@
+* {
+   border: 0;
+   padding: 0;
+   box-sizing: inherit;
+}
+
+body {
+   font-family: sans-serif;
+   line-height: 1.5rem;
+   display: flex;
+   height: 100vh;
+   flex-direction: column;
+   justify-content: flex-start;
+   align-items: center;
+   background: linear-gradient(to top left, #5f3dc4, #7950f2 );
+   color: #ffffff;
+}
+
+h1 {
+   margin-top: 3rem;
+   text-transform: uppercase;
+}
+
+p {
+   font-size: 1.8rem;
+}
