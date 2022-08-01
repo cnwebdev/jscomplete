@@ -11,6 +11,3 @@ const secondValEl = document.querySelector(".second-val");
 
 const currentResultOutput = document.getElementById('current-result');
 const currentCalculationOutput = document.getElementById('current-calculation');
-
-
-

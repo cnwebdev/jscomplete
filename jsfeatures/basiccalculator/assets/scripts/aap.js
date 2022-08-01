@@ -9,7 +9,7 @@ const data = {
    result: 0,
 }
 
-// Function resetData is declared but not used in current version
+// resetData is declared but not used in current version
 const resetData = () => {
    data.input = 0;
    data.counter = 0;
@@ -49,14 +49,13 @@ const getInput = () => {
 const setOperator = (sign) => {
    let operator = sign;
    data.operator = operator;
-   data.val2 = 0;
+   computeData();
 }
 
 // computeData calculates the math expression and store result 
 // in data.result object
 const computeData = () => {
    if (data.counter === 2) {
-      let operator;
       switch (data.operator) {
          case "+":
             data.result = data.val1 + data.val2;
@@ -70,53 +69,56 @@ const computeData = () => {
          case "/":
             data.result = data.val1 / data.val2;
             break;
-         default: 
-            console.log("missing operator.");
-      } 
-   } else {
+         default:
+            operatorEl.innerHTML = "missing operator.";
+            outputResult();
+            console.log(data);
+      }
       console.log(data.result);
+   } else {
+      data.counter = 1;
    }
 }
 
 // outputResult prints data object feilds to the screen
-function outputResult(result, first, operator, second) {
-   currentResultOutput.textContent = result;
+function outputResult() {
+   currentResultOutput.innerHTML = data.result;
    firstValEl.innerHTML = data.val1;
    operatorEl.innerHTML = data.operator;
    secondValEl.innerHTML = data.val2;
    userInput.value = "";
- }
- 
+}
+
 // input field event 
-userInput.addEventListener("keydown", function(e) {
+userInput.addEventListener("keydown", function (e) {
    const key = e;
    if (e.key === "Enter") {
       getInput();
-      outputResult(data.result, data.input)
+      outputResult()
       console.log(data);
    }
 });
 
 // addBtn event 
-addBtn.addEventListener("click", function() {
+addBtn.addEventListener("click", function () {
    setOperator("+");
-   outputResult(data.result, data.operator)
+   outputResult();
 });
 
 // subtractBtn event
-subtractBtn.addEventListener("click", function() {
+subtractBtn.addEventListener("click", function () {
    setOperator("-");
-   outputResult(data.result, data.operator)  
+   outputResult();
 });
 
 // multiplyBtn event
-multiplyBtn.addEventListener("click", function() {
+multiplyBtn.addEventListener("click", function () {
    setOperator("*");
-   outputResult(data.result, data.operator)  
+   outputResult();
 });
 
 // divideBtn event
-divideBtn.addEventListener("click", function() {
+divideBtn.addEventListener("click", function () {
    setOperator("/");
-   outputResult(data.result, data.operator)
+   outputResult();
 });
