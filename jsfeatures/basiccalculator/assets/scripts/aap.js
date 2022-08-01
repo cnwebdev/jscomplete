@@ -91,7 +91,6 @@ function outputResult() {
 
 // input field event 
 userInput.addEventListener("keydown", function (e) {
-   const key = e;
    if (e.key === "Enter") {
       getInput();
       outputResult()
