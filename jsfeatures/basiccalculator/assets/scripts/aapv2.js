@@ -12,6 +12,7 @@ const getInput = (operator) => {
    data.input = Number(userInput.value);
    data.inputDes = `${data.result} ${operator} ${data.input}`;
    console.log(data, typeof data.input);
+   userInput.value = "";
 }
 
 // outputResult prints data object feilds to the screen
@@ -47,15 +48,6 @@ const divide = () => {
    data.result = data.result / data.input;
    outputResult();
 }
-
-// input field event 
-userInput.addEventListener("keydown", function (e) {
-   if (e.key === "Enter") {
-      getInput();
-      outputResult()
-      console.log(data)
-   }
-});
 
 // addBtn event 
 addBtn.addEventListener("click", add); 
