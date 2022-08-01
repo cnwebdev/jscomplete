@@ -3,16 +3,30 @@
 const data = {
    input: 0,
    result: 0,
+   operator: "",
    inputDes: "",
 }
 
+let logEntries = [];
+
 // getInput get the data from input field, convert to Number then store 
 // in data object account to data.counter value of 1 or 2
-const getInput = (operator) => {
+const getInput = () => {
    data.input = Number(userInput.value);
-   data.inputDes = `${data.result} ${operator} ${data.input}`;
+   data.inputDes = `${data.result} ${data.operator} ${data.input}`;
    console.log(data, typeof data.input);
    userInput.value = "";
+}
+
+const writeLog = () => {
+   const logEntry = {
+      input: data.input,
+      operator: data.operator,
+      result: data.result,
+      inputDes: data.inputDes,
+   }
+   logEntries.push(logEntry);
+   console.log(logEntries);
 }
 
 // outputResult prints data object feilds to the screen
@@ -22,31 +36,35 @@ function outputResult() {
 }
 
 const add = () => {
-   let operator = "+";
-   getInput(operator);
+   data.operator = "+";
+   getInput();
    data.result = data.result + data.input;
    outputResult();
+   writeLog();
 }
 
 const subtract = () => {
-   let operator = "-";
-   getInput(operator);
+   data.operator = "-";
+   getInput();
    data.result = data.result - data.input;
    outputResult();
+   writeLog();
 }
 
 const multiply = () => {
-   let operator = "*";
-   getInput(operator);
+   data.operator = "*"
+   getInput();
    data.result = data.result * data.input;
    outputResult();
+   writeLog();
 }
 
 const divide = () => {
-   let operator = "/";
-   getInput(operator);
+   data.operator = "/"
+   getInput();
    data.result = data.result / data.input;
    outputResult();
+   writeLog();
 }
 
 // addBtn event 
