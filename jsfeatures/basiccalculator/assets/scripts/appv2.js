@@ -9,6 +9,12 @@ const data = {
 
 let logEntries = [];
 
+// outputResult prints data object feilds to the screen
+function outputResult() {
+   currentCalculationOutput.innerHTML = data.inputDes;
+   currentResultOutput.innerHTML = data.result;
+}
+
 // getInput get the data from input field, convert to Number then store 
 // in data object account to data.counter value of 1 or 2
 const getInput = () => {
@@ -29,11 +35,6 @@ const writeLog = () => {
    console.log(logEntries);
 }
 
-// outputResult prints data object feilds to the screen
-function outputResult() {
-   currentCalculationOutput.innerHTML = data.inputDes;
-   currentResultOutput.innerHTML = data.result;
-}
 
 const add = () => {
    data.operator = "+";
