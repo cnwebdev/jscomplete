@@ -42,13 +42,15 @@ const getInput = () => {
       data.val2 = data.input;
       computeData();
    }
+   outputResult();
    console.log(data.input, typeof data.input);
 }
 
 // setOperator set the math operator to data.operator object
 const setOperator = (sign) => {
-   let operator = sign;
-   data.operator = operator;
+   data.operator = sign;
+   operatorEl.innerHTML = data.operator;
+   console.log(data);
    computeData();
 }
 
@@ -70,11 +72,9 @@ const computeData = () => {
             data.result = data.val1 / data.val2;
             break;
          default:
-            operatorEl.innerHTML = "missing operator.";
             outputResult();
-            console.log(data);
+            data.operator = "missing operator";
       }
-      console.log(data.result);
    } else {
       data.counter = 1;
    }
@@ -95,7 +95,7 @@ userInput.addEventListener("keydown", function (e) {
    if (e.key === "Enter") {
       getInput();
       outputResult()
-      console.log(data);
+      console.log(data)
    }
 });
 
