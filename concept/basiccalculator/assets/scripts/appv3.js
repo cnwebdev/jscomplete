@@ -26,23 +26,31 @@ function outputResult() {
 // save input values to data object
 const saveInputData = (input, operator) => {
    data.input = input;
-   data.switch = data.switch === 1 ? 0 : 1;
-   if (data.switch === 0) {
-      data.val1 = data.input;
+   if (data.input) {
+      console.log(data.input)
+      data.switch = data.switch === 1 ? 0 : 1;
+      if (data.switch === 0) {
+         data.val1 = data.input;
+      } else {
+         data.val2 = data.input;
+      }
+      data.operator = operator
+      console.log(data, typeof data.input);
+      userInput.value = "";
+      compute();
+      data.val2 = 0;
+      data.result = 0;
    } else {
-      data.val2 = data.input;
+      console.log("No number entered.")
+      return
    }
-   data.operator = operator
-   console.log(data, typeof data.input);
-   userInput.value = "";
-   compute();
-   data.val2 = 0;
-   data.result = 0;
 }
 
 const writeLog = () => {
    const logEntry = {
       input: data.input,
+      val1: data.val1,
+      val2: data.val2,
       operator: data.operator,
       result: data.result,
       inputDes: data.inputDes,
@@ -55,20 +63,20 @@ const compute = () => {
    if (data.operator === "+") {
       data.result = data.val1 + data.val2;
    } else if (data.operator === "-") {
-      data.result = data.val1 - data.val2; 
+      data.result = data.val1 - data.val2;
    } else if (data.operator === "*") {
       data.result = data.val1 * data.val2;
    } else if (data.operator === "/") {
       data.result = data.val1 / data.val2;
    } else {
-      return "Operation not supported";
+      return
    }
    outputResult();
+   writeLog();
 }
 
 addBtn.addEventListener("click", function () {
    let input = getInput();
-   console.log("From addBtn", input, typeof input);
    saveInputData(input, "+");
 });
 

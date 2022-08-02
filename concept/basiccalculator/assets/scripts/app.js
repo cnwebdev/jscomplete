@@ -72,11 +72,10 @@ const computeData = () => {
             data.result = data.val1 / data.val2;
             break;
          default:
-            outputResult();
-            data.operator = "missing operator";
+            return
       }
    } else {
-      data.counter = 1;
+      return
    }
 }
 
