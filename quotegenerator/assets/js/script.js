@@ -31,6 +31,7 @@ const getRanNum = () => {
    return num;
 }
 
+// getting quotes from type.fit/api/quotes
 async function getQuoutes() {
    loaderVisible();
    const apiUrl = "https://type.fit/api/quotes";
@@ -78,29 +79,10 @@ const tweetQuote = () => {
    window.open(twitterURL, "_blank");
 }
 
-
+// All addEventListener(s) are here
 btnNewQuote.addEventListener("click", newQuote);
 btnTwitter.addEventListener("click", tweetQuote);
 
 // On Load
 getQuoutes();
 
-
-/*
-const postQuote = () => {
-   let nums = quotesObj.length;
-   let ranNum = getRanNum(nums);
-   const quote = quotesObj[ranNum];
-   console.log(quote);
-}
-*/
-
-
-
-/*
-// Not working at this time
-const parseJSON = (jsonQuotes) => {
-   const quotesObj = JSON.parse(jsonQuotes);
-   console.log("From parseJSON", quotesObj);
-}
-*/
