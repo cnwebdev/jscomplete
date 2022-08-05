@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+html {
+   box-sizing: border-box;
+}
+
+body {
+   margin: 0;
+   background-image: url("../img/6865528.jpg");
+   font-family: Montserrat, sans-serif;
+   font-weight: 400;
+   color: #ffffff;
+   height: 100vh;
+   object-fit: cover;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.quote-box {
+   width: auto;
+   max-width: 50rem;
+   padding: 20px 30px;
+   border-radius: 10px;
+   background-color: #fdfdfd43;
+   box-shadow: 0 10px 10px 0px #28282874;
+}
+
+.quote-text {
+   font-size: 1.5rem;
+}
+
+.long-quote {
+   font-size: 1.5rem;
+}
+
+.fa-quote-left {
+   font-size: 3rem;
+}
+
+.name-authur {
+   font-size: 1.2rem;
+   margin-top: 10px;
+   font-style: italic;
+   text-align: center;
+}
+
+.btn-group {
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
+}
+
+.btn-twitter, .btn-quote {
+   font-size: 1rem;
+   margin-top: 10px;
+   padding: 8px 20px;
+   background-color: #ffffff53;
+   color: #ffffff;
+   border-radius: 8px;
+   border-style: none;
+   box-shadow: 0 6px 6px 0 #22222270;
+}
+
+.btn-twitter:hover, .btn-quote:hover {
+   background-color: #ffffff;
+   color: #38a1f3;
+}
+
+.btn-twitter:active, .btn-quote:active {
+   transform: translate(0, 3px);
+   box-shadow: 0 2px 2px 0 #22222270;
+}
+
+@media screen and (max-width: 1000px) {
+   .quote-box {
+      margin: auto 10px;
+   }
+   .quote-text {
+      font-size: 1.5rem;
+   }
+}
