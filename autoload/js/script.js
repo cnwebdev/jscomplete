@@ -4,18 +4,24 @@
 const spinner = document.getElementById("spinner");
 const spinnerEl = document.querySelector(".spinner");
 const imagesGroup = document.getElementById("images-group");
-const loadedImage = document.getElementById("loaded-img");
 
 let imagesArray = [];
+let ready = true;
+let imagesLoaded = 0;
+let totalImages = 0;
 
 // unsplash API 
-const count = 10;
+const count = 30;
 const apiKey = "yvi0lX3SoIIShjKJWcawq5URAylUrXZKcixy3xkf7qY";
 const apiURL = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
 
 // imageLoaded confirm when the image is loaded
 const imageLoaded = () => {
-    console.log("Image loaded");
+    imagesLoaded++;
+    console.log("Image loaded", imagesLoaded);
+    if (imagesLoaded === totalImages) {
+        console.log("ready =", ready);
+    }
 }
 
 // show spinner
@@ -37,6 +43,7 @@ async function getImages() {
         console.log(imagesArray);
         displayImages();
         spinnerHidden();
+        ready = true;
     } catch (error) {
         // catch error
         console.log("fails to get images from api", error);
@@ -54,6 +61,9 @@ const setAttributes = (tag, attributes) => {
 
 // displayImages 
 const displayImages = () => {
+    imagesLoaded = 0;
+    totalImages = imagesArray.length;
+    console.log("total images", totalImages);
     imagesArray.forEach((image) => {
         // Create html tags, and set attributes
         const aEl = document.createElement("a");
@@ -69,17 +79,19 @@ const displayImages = () => {
             atl: image.alt_description, 
             title: image.alt_description,
         });
+
         // Check for image loaded
-        loadedImage.addEventListener("load", imageLoaded);
+        imgEl.addEventListener("load", imageLoaded);
         // insert <img> inside <a>
         aEl.appendChild(imgEl);
         imagesGroup.appendChild(aEl);
     });
 }
 
-// 
+// Check if scroll has reached the end of the images stacks
 window.addEventListener("scroll", () => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000) {
+    if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000 && ready) {
+        ready = false;
         getImages();
         console.log("load more");
     }
