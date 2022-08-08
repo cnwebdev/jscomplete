@@ -15,7 +15,7 @@ const count = 30;
 const apiKey = "yvi0lX3SoIIShjKJWcawq5URAylUrXZKcixy3xkf7qY";
 const apiURL = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
 
-// imageLoaded confirm when the image is loaded
+// imageLoaded confirm when the images are loaded
 const imageLoaded = () => {
     imagesLoaded++;
     console.log("Image loaded", imagesLoaded);
