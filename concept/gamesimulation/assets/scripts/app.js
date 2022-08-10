@@ -85,18 +85,19 @@ function attackHandler(attack) {
         gameData.gameState = PLAYER_WON;
         writeLog(PLAYER_WON);
         alert(gameData.gameState);
-        resetGame();
     } else if (gameData.playerHealth <= 0 && gameData.monsterHealth > 0) {
         gameData.action = MONSTER_WON;
         gameData.gameState = MONSTER_WON;
         writeLog(MONSTER_WON);
         alert(gameData.gameState);
-        resetGame();
     } else if (gameData.playerHealth <= 0 && gameData.monsterHealth <= 0) {
         gameData.action = DRAW;
         gameData.gameState = DRAW;
         writeLog(DRAW);
         alert(gameData.gameState);
+    }
+    
+    if (gameData.playerHealth <= 0 || gameData.monsterHealth <= 0) {
         resetGame();
     }
 }
