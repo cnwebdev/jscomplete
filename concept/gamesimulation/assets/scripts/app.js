@@ -1,21 +1,32 @@
 "use strict";
 
+let logEntries = [];
+
 const gameData = {
-    maxLife: 100,
-    playerAttack: 10,
-    strongAttack: 17,
-    monsterAttack: 12,
+    action: "",
+    maxLife: 0,
+    playerAttack: 0,
+    strongAttack: 0,
+    monsterAttack: 0,
     monsterHealth: 0,
     playerHealth: 0,
-    healValue: 20,
+    healValue: 0,
+    gameState: "",
 }
 
-gameData.monsterHealth = gameData.maxLife;
-gameData.playerHealth = gameData.maxLife;
+// Game States Variables
+const PLAYER_WON = "You Won!";
+const MONSTER_WON = "Monster Won!";
+const DRAW = "Game Draw!";
+const PLAYER_ATTACK = "Player Attack";
+const STRONG_ATTACK = "Strong Attack";
+const HEAL_PLAYER = "Heal Player";
+const INPROGRESS = "In Progress";
+const GAME_READY = "Game Ready";
+const RESET_GAME = "Reset Game";
 
-
+// Console.log game data for testing purpose
 function showGameScore() {
-    console.log(gameData)
     console.log("Player Attack", gameData.playerAttack);
     console.log("Monster Attack", gameData.monsterAttack);
     console.log("Monster Health", gameData.monsterHealth);
@@ -23,23 +34,30 @@ function showGameScore() {
     console.log("Heal Value", gameData.healValue);
 }
 
-function resetGame() {
-    adjustHealthBars();
+// Reset game on Player Won/Loss/Tide states
+function init() {
+    gameData.action = RESET_GAME;
     gameData.maxLife = 100;
-    gameData.playerAttack = 10,
-        gameData.monsterAttack = 12,
-        gameData.monsterHealth = gameData.maxLife;
-    gameData.playerHealth = gameData.maxLife;
+    gameData.playerAttack = 10;
+    gameData.strongAttack = 17;
+    gameData.monsterAttack = 12;
+    gameData.monsterHealth = 100;
+    gameData.playerHealth = 100;
     gameData.healValue = 20;
+    gameData.gameState = GAME_READY;
+    adjustHealthBars();
+    writeLog(RESET_GAME);
 }
 
+// Handles all game actions - Player attack, strong attack
+// and monster attack, insert game data to gameData object
 function attackHandler(attack) {
     const mAttack = gameData.monsterAttack;
     let pAttack;
 
-    if (gameData.playerAttack === attack) {
+    if (attack === PLAYER_ATTACK) {
         pAttack = gameData.playerAttack;
-    } else if (gameData.strongAttack === attack) {
+    } else if (attack === STRONG_ATTACK) {
         pAttack = gameData.strongAttack;
     }
 
@@ -49,38 +67,113 @@ function attackHandler(attack) {
     gameData.playerHealth -= dealPD;
 
     if (gameData.monsterHealth <= 0 && gameData.playerHealth > 0) {
-        alert("You won!");
+        gameData.action = PLAYER_WON;
+        gameData.gameState = PLAYER_WON;
+        writeLog(PLAYER_WON);
+        alert(gameData.gameState);
     } else if (gameData.playerHealth <= 0 && gameData.monsterHealth > 0) {
-        alert("You loss!");
+        gameData.action = MONSTER_WON;
+        gameData.gameState = MONSTER_WON;
+        writeLog(MONSTER_WON);
+        alert(gameData.gameState);
     } else if (gameData.playerHealth <= 0 && gameData.monsterHealth <= 0) {
-        alert("You have a draw!");
+        gameData.action = DRAW;
+        gameData.gameState = DRAW;
+        writeLog(DRAW);
+        alert(gameData.gameState);
     }
 
     if (gameData.monsterHealth <= 0 ||
         gameData.playerHealth <= 0 ||
         gameData.monsterHealth <= 0 &&
         gameData.playerHealth <= 0) {
-        resetGame();
+        init();
     }
 }
 
-adjustHealthBars(gameData.maxLife);
-
+// Handles increase player health 
 function healHandler() {
+    gameData.action = HEAL_PLAYER;
     gameData.playerHealth += gameData.healValue;
     increasePlayerHealth(gameData.healValue);
     dealPlayerDamage(gameData.monsterAttack);
-    showGameScore();
+    setPlayerHealth(gameData.playerHealth);
+    writeLog(HEAL_PLAYER);
 }
 
+function showLogs() {
+    for (let i = 0; i < logEntries.length; i++) {
+        console.log(logEntries[i]);
+    }
+}
+
+// Writing game states data to logs object and insert to 
+// logEntry array
+function writeLog(logMsg) {
+    let logs = {
+        action: gameData.action,
+        playerAttack: gameData.playerAttack,
+        strongAttack: gameData.strongAttack,
+        monsterAttack: gameData.monsterAttack,
+        monsterHealth: gameData.monsterHealth,
+        playerHealthBar: gameData.playerHealth,
+        healPlayer: gameData.healValue,
+        gameState: gameData.gameState,
+    }
+
+    if (logMsg === PLAYER_ATTACK) {
+            logs.action = gameData.action;
+            logs.gameState = gameData.gameState;
+    } else if (logMsg === STRONG_ATTACK) {
+            logs.action = gameData.action;
+            logs.gameState = gameData.gameState;
+    } else if (logMsg === PLAYER_WON) {
+            logs.action = gameData.action;
+            logs.gameState = gameData.gameState;
+    } else if (logMsg === MONSTER_WON) {
+            logs.action = gameData.action;
+            lgos.gameState = gameData.gameState;
+    } else if (logMsg === HEAL_PLAYER) {
+            logs.action = gameData.action;
+            logs.gameState = gameData.gameState;
+    } else if (logMsg === DRAW) {
+            logs.action = gameData.action;
+            logs.gameState = gameData.gameState;
+    } else if (logMsg === RESET_GAME) {
+            logs.action = gameData.action;
+            logs.gameState = gameData.gameState;
+    } else {
+        console.log("Unsupported message");
+    }
+    logEntries.push(logs)
+}
+
+function playerAttack() {
+    gameData.action = PLAYER_ATTACK;
+    gameData.gameState = INPROGRESS;
+    attackHandler(PLAYER_ATTACK);
+    writeLog(PLAYER_ATTACK);
+}
+
+function strongAttack() {
+    gameData.action = STRONG_ATTACK;
+    gameData.gameState = INPROGRESS;
+    attackHandler(STRONG_ATTACK);
+    writeLog(STRONG_ATTACK);
+}
+
+// UI Events block
 attackBtn.addEventListener("click", function () {
-    attackHandler(gameData.playerAttack);
-    showGameScore();
+    playerAttack();
 });
 
 strongAttackBtn.addEventListener("click", function () {
-    attackHandler(gameData.strongAttack);
-    showGameScore();
+    strongAttack();
 });
 
 healBtn.addEventListener("click", healHandler);
+
+logBtn.addEventListener("click", showLogs);
+
+// on load
+init();
