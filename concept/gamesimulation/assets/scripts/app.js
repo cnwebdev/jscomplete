@@ -101,7 +101,7 @@ function healHandler() {
     writeLog(HEAL_PLAYER);
 }
 
-function showLogs() {
+function showLogsHandler() {
     for (let i = 0; i < logEntries.length; i++) {
         console.log(logEntries[i]);
     }
@@ -166,7 +166,7 @@ function strongAttack() {
 attackBtn.addEventListener("click", playerAttack);
 strongAttackBtn.addEventListener("click", strongAttack);
 healBtn.addEventListener("click", healHandler);
-logBtn.addEventListener("click", showLogs);
+logBtn.addEventListener("click", showLogsHandler);
 
 // on load
 init();
