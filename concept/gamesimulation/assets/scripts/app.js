@@ -78,6 +78,7 @@ function attackHandler(attack) {
         gameData.bonusLife = false;
         gameData.playerHealth = gameData.healValue;
         setPlayerHealth(gameData.playerHealth);
+        bonusLifeEl.hidden = true;
     }
 
     if (gameData.monsterHealth <= 0 && gameData.playerHealth > 0) {
