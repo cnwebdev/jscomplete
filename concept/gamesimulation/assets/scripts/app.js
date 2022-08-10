@@ -1,6 +1,14 @@
 "use strict";
 
 // Game States Variables
+const MAX_LIFE = 100;
+const M_ATTACK = 12;
+const P_ATTACK = 10;
+const ST_ATTACK = 17;
+const H_VALUE = 20;
+const P_HEALTH = 100;
+const M_HEALTH = 100;
+const BONUS = true;
 const PLAYER_WON = "You Won!";
 const MONSTER_WON = "Monster Won!";
 const DRAW = "Game Draw!";
@@ -38,14 +46,14 @@ function showGameScore() {
 // Reset game on Player Won/Loss/Tide states
 function init() {
     gameData.action = RESET_GAME;
-    gameData.maxLife = 100;
-    gameData.bonusLife = true;
-    gameData.playerAttack = 10;
-    gameData.strongAttack = 17;
-    gameData.monsterAttack = 12;
-    gameData.monsterHealth = 100;
-    gameData.playerHealth = 100;
-    gameData.healValue = 20;
+    gameData.maxLife = MAX_LIFE;
+    gameData.bonusLife = BONUS;
+    gameData.playerAttack = P_ATTACK;
+    gameData.strongAttack = ST_ATTACK;
+    gameData.monsterAttack = M_ATTACK;
+    gameData.monsterHealth = M_HEALTH;
+    gameData.playerHealth = P_HEALTH;
+    gameData.healValue = H_VALUE;
     gameData.gameState = GAME_READY;
     adjustHealthBars();
     writeLog(RESET_GAME);
