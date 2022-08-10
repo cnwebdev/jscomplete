@@ -16,6 +16,7 @@ let logEntries = [];
 const gameData = {
     action: "",
     maxLife: 0,
+    bonusLife: Boolean,
     playerAttack: 0,
     strongAttack: 0,
     monsterAttack: 0,
@@ -38,6 +39,7 @@ function showGameScore() {
 function init() {
     gameData.action = RESET_GAME;
     gameData.maxLife = 100;
+    gameData.bonusLife = true;
     gameData.playerAttack = 10;
     gameData.strongAttack = 17;
     gameData.monsterAttack = 12;
@@ -65,6 +67,12 @@ function attackHandler(attack) {
     const dealMD = dealMonsterDamage(pAttack);
     gameData.monsterHealth -= dealMD;
     gameData.playerHealth -= dealPD;
+
+    if (gameData.playerHealth <= 0 && gameData.bonusLife) {
+        gameData.bonusLife = false;
+        gameData.playerHealth = gameData.healValue;
+        setPlayerHealth(gameData.playerHealth);
+    }
 
     if (gameData.monsterHealth <= 0 && gameData.playerHealth > 0) {
         gameData.action = PLAYER_WON;
@@ -132,7 +140,7 @@ function writeLog(logMsg) {
             logs.gameState = gameData.gameState;
     } else if (logMsg === MONSTER_WON) {
             logs.action = gameData.action;
-            lgos.gameState = gameData.gameState;
+            logs.gameState = gameData.gameState;
     } else if (logMsg === HEAL_PLAYER) {
             logs.action = gameData.action;
             logs.gameState = gameData.gameState;
