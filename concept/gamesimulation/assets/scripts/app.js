@@ -1,5 +1,16 @@
 "use strict";
 
+// Game States Variables
+const PLAYER_WON = "You Won!";
+const MONSTER_WON = "Monster Won!";
+const DRAW = "Game Draw!";
+const PLAYER_ATTACK = "Player Attack";
+const STRONG_ATTACK = "Strong Attack";
+const HEAL_PLAYER = "Heal Player";
+const INPROGRESS = "In Progress";
+const GAME_READY = "Game Ready";
+const RESET_GAME = "Reset Game";
+
 let logEntries = [];
 
 const gameData = {
@@ -13,17 +24,6 @@ const gameData = {
     healValue: 0,
     gameState: "",
 }
-
-// Game States Variables
-const PLAYER_WON = "You Won!";
-const MONSTER_WON = "Monster Won!";
-const DRAW = "Game Draw!";
-const PLAYER_ATTACK = "Player Attack";
-const STRONG_ATTACK = "Strong Attack";
-const HEAL_PLAYER = "Heal Player";
-const INPROGRESS = "In Progress";
-const GAME_READY = "Game Ready";
-const RESET_GAME = "Reset Game";
 
 // Console.log game data for testing purpose
 function showGameScore() {
@@ -163,16 +163,9 @@ function strongAttack() {
 }
 
 // UI Events block
-attackBtn.addEventListener("click", function () {
-    playerAttack();
-});
-
-strongAttackBtn.addEventListener("click", function () {
-    strongAttack();
-});
-
+attackBtn.addEventListener("click", playerAttack);
+strongAttackBtn.addEventListener("click", strongAttack);
 healBtn.addEventListener("click", healHandler);
-
 logBtn.addEventListener("click", showLogs);
 
 // on load
