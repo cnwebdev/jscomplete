@@ -51,6 +51,12 @@ function init() {
     writeLog(RESET_GAME);
 }
 
+function resetGame() {
+    gameData.playerHealth = 100;
+    gameData.monsterHealth = 100;
+    adjustHealthBars();
+}
+
 // Handles all game actions - Player attack, strong attack
 // and monster attack, insert game data to gameData object
 function attackHandler(attack) {
@@ -79,23 +85,19 @@ function attackHandler(attack) {
         gameData.gameState = PLAYER_WON;
         writeLog(PLAYER_WON);
         alert(gameData.gameState);
+        resetGame();
     } else if (gameData.playerHealth <= 0 && gameData.monsterHealth > 0) {
         gameData.action = MONSTER_WON;
         gameData.gameState = MONSTER_WON;
         writeLog(MONSTER_WON);
         alert(gameData.gameState);
+        resetGame();
     } else if (gameData.playerHealth <= 0 && gameData.monsterHealth <= 0) {
         gameData.action = DRAW;
         gameData.gameState = DRAW;
         writeLog(DRAW);
         alert(gameData.gameState);
-    }
-
-    if (gameData.monsterHealth <= 0 ||
-        gameData.playerHealth <= 0 ||
-        gameData.monsterHealth <= 0 &&
-        gameData.playerHealth <= 0) {
-        init();
+        resetGame();
     }
 }
 
