@@ -6,7 +6,7 @@ for (let i = 0; i < numbers.length; i++) {
   doubledNumbers.push(numbers[i] * 2);
 }
 
-// Refactor
+// Refactor 
 let doubled = numbers.map(function (number) {
   return number * 2;
 });
