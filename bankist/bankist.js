@@ -7,28 +7,28 @@
 // Data
 const account1 = {
   owner: 'Jonas Schmedtmann',
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+  transactions: [200, 450, -400, 3000, -650, -130, 70, 1300],
   interestRate: 1.2, // %
   pin: 1111,
 };
 
 const account2 = {
   owner: 'Jessica Davis',
-  movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
+  transactions: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
 };
 
 const account3 = {
   owner: 'Steven Thomas Williams',
-  movements: [200, -200, 340, -300, -20, 50, 400, -460],
+  transactions: [200, -200, 340, -300, -20, 50, 400, -460],
   interestRate: 0.7,
   pin: 3333,
 };
 
 const account4 = {
   owner: 'Sarah Smith',
-  movements: [430, 1000, 700, 50, 90],
+  transactions: [430, 1000, 700, 50, 90],
   interestRate: 1,
   pin: 4444,
 };
@@ -45,7 +45,7 @@ const labelSumInterest = document.querySelector('.summary__value--interest');
 const labelTimer = document.querySelector('.timer');
 
 const containerApp = document.querySelector('.app');
-const containerMovements = document.querySelector('.movements');
+const containerTransactions = document.querySelector('.transactions');
 
 const btnLogin = document.querySelector('.login__btn');
 const btnTransfer = document.querySelector('.form__btn--transfer');
@@ -61,21 +61,34 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const displayMovements = function (movements) {
-  containerMovements.innerHTML = "";
+const displayTransactions = function (transactions) {
+  containerTransactions.innerHTML = "";
 
-  movements.forEach(function (mov, i) {
-    const type = mov > 0 ? "deposit" : "withdrawal";
+  transactions.forEach(function (trans, i) {
+    const type = trans > 0 ? "deposit" : "withdrawal";
     const html = `
-    <div class="movements__row">
-      <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
-      <div class="movements__value">${mov}</div>
+    <div class="transactions__row">
+      <div class="transactions__type transactions__type--${type}">${i + 1} ${type}</div>
+      <div class="transactions__value">${trans}</div>
     </div>
     `;
-    containerMovements.insertAdjacentHTML("afterbegin", html);
+    containerTransactions.insertAdjacentHTML("afterbegin", html);
   });
 }
-displayMovements(account1.movements);
+displayTransactions(account1.transactions);
+
+const createUsername = function (accounts) {
+  accounts.forEach(function (acct) {
+    acct.username = acct.owner.toLowerCase().split(" ").map(name => name[0]).join("");
+  });
+};
+createUsername(accounts);
+
+const calcBalance = function (transact) {
+  const balance = transact.reduce((accu, trans) => accu + trans, 0);
+  labelBalance.textContent = `${balance}€`;
+};
+calcBalance(account1.transactions);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -87,6 +100,6 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const transactions = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
