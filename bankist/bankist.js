@@ -69,13 +69,42 @@ const displayTransactions = function (transactions) {
     const html = `
     <div class="transactions__row">
       <div class="transactions__type transactions__type--${type}">${i + 1} ${type}</div>
-      <div class="transactions__value">${trans}</div>
+      <div class="transactions__value">${trans}€</div>
     </div>
     `;
     containerTransactions.insertAdjacentHTML("afterbegin", html);
   });
 }
 displayTransactions(account1.transactions);
+
+const calcBalance = function (transact) {
+  const balance = transact.reduce((accu, trans) => accu + trans, 0);
+  labelBalance.textContent = `${balance}€`;
+};
+calcBalance(account1.transactions);
+
+const depositsTotal = function (transacts) {
+  const inTotal = transacts.filter(trans => trans > 0).reduce((accu, trans) => accu + trans, 0);
+  labelSumIn.innerHTML = `${inTotal}€`;
+  console.log(inTotal);
+};
+depositsTotal(account1.transactions);
+
+const withdrewsTotal = function (transact) {
+  const outTotal = transact.filter(trans => trans < 0).reduce((accu, trans) => accu + trans, 0);
+  labelSumOut.innerHTML = `${Math.abs(outTotal)}€`;
+  console.log(outTotal);
+};
+withdrewsTotal(account1.transactions);
+
+const interestTotal = function (transact) {
+  const intTotal = transact.filter(trans => trans > 0).map(deposit => (deposit * 0.41) / 100).reduce((accu, int) => accu + int, 0);
+  labelSumInterest.innerHTML = `${intTotal}€`;
+  console.log(intTotal);
+};
+interestTotal(account1.transactions);
+
+
 
 const createUsername = function (accounts) {
   accounts.forEach(function (acct) {
@@ -84,11 +113,8 @@ const createUsername = function (accounts) {
 };
 createUsername(accounts);
 
-const calcBalance = function (transact) {
-  const balance = transact.reduce((accu, trans) => accu + trans, 0);
-  labelBalance.textContent = `${balance}€`;
-};
-calcBalance(account1.transactions);
+
+
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
